@@ -9,20 +9,24 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Connect to MongoDB (LOCAL)
-mongoose.connect("mongodb://127.0.0.1:27017/notesapp")
+// ✅ MongoDB Connection (Use ENV in production)
+mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log("DB Connected"))
   .catch(err => console.log(err));
 
 
-// ✅ CREATE NOTE (POST)
+// ✅ CREATE NOTE
 app.post("/notes", async (req, res) => {
   try {
-    const note = new Note(req.body);
-    await note.save();
-    res.json(note);
+    const note = new Note({
+      title: req.body.title,
+      description: req.body.description
+    });
+
+    const savedNote = await note.save();
+    res.json(savedNote);
   } catch (err) {
-    res.status(500).json(err);
+    res.status(500).json({ error: err.message });
   }
 });
 
@@ -31,9 +35,9 @@ app.post("/notes", async (req, res) => {
 app.get("/notes", async (req, res) => {
   try {
     const notes = await Note.find().sort({ createdAt: -1 });
-    res.json(notes);
+    res.json(notes);   // 🔥 IMPORTANT
   } catch (err) {
-    res.status(500).json(err);
+    res.status(500).json({ error: err.message });
   }
 });
 
@@ -43,12 +47,15 @@ app.put("/notes/:id", async (req, res) => {
   try {
     const updated = await Note.findByIdAndUpdate(
       req.params.id,
-      req.body,
+      {
+        title: req.body.title,
+        description: req.body.description
+      },
       { new: true }
     );
     res.json(updated);
   } catch (err) {
-    res.status(500).json(err);
+    res.status(500).json({ error: err.message });
   }
 });
 
@@ -59,7 +66,7 @@ app.delete("/notes/:id", async (req, res) => {
     await Note.findByIdAndDelete(req.params.id);
     res.json({ message: "Deleted successfully" });
   } catch (err) {
-    res.status(500).json(err);
+    res.status(500).json({ error: err.message });
   }
 });
 
@@ -70,7 +77,9 @@ app.get("/", (req, res) => {
 });
 
 
-// Start server
-app.listen(5000, () => {
-  console.log("Server running on port 5000");
+// ✅ PORT FIX FOR RENDER
+const PORT = process.env.PORT || 5000;
+
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
 });

@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-const API = "https://notes-app-wq9r.onrender.com/notes";
+// ✅ USE YOUR BACKEND URL HERE
+const API = "https://notes-app-backend-kr0l.onrender.com/notes";
 
 function App() {
   const [notes, setNotes] = useState([]);
