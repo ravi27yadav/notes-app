@@ -1,29 +1,38 @@
 # 📝 Notes App
 
-A full-stack Notes application built using MERN stack.
+A simple and clean Notes Management Application where users can create, edit, delete, and search notes.
 
-## 🚀 Tech Stack
-- React.js
-- Node.js
-- Express.js
-- MongoDB
+## 🚀 Live Demo
 
-## ✨ Features
-- Add notes
-- View notes
-- Delete notes
+👉 https://notes-app-1-snt0.onrender.com
 
-## ▶️ Run Locally
+## 📌 Features
 
-### Backend
-cd backend  
-npm install  
-node server.js  
+* Add new notes
+* Edit notes
+* Delete notes
+* Search notes
+* Data stored using Local Storage
 
-### Frontend
-cd frontend  
-npm install  
-npm start  
+## 🛠 Tech Stack
 
-## 👨‍💻 Author
+* HTML
+* CSS
+* JavaScript
+
+## 📂 Project Structure
+
+* index.html
+* style.css
+* script.js
+
+## 💡 Future Improvements
+
+* User authentication
+* Backend integration (Node.js)
+* Database storage
+
+## 📫 Contact
+
 Ravi Yadav
+[ravi.yadav.dev27@gmail.com](mailto:ravi.yadav.dev27@gmail.com)
